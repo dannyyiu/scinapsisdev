@@ -7,7 +7,7 @@ DECLARE v_parental_name VARCHAR(100);
 DECLARE v_alternative_name VARCHAR(100);
 DECLARE done BOOLEAN DEFAULT FALSE;
 DECLARE cur1 CURSOR FOR SELECT parental_name, alternative FROM scin_db.pub_technique_list;
-DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done=1;
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
 OPEN cur1;
 techLoop: LOOP
@@ -44,7 +44,7 @@ BEGIN
 DECLARE v_gene_name VARCHAR(100);
 DECLARE done BOOLEAN DEFAULT FALSE;
 DECLARE cur1 CURSOR FOR SELECT gene_name FROM scin_db.pub_protein_list;
-DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done=1;
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
 OPEN cur1;
 protLoop: LOOP
@@ -95,8 +95,8 @@ DECLARE CONTINUE HANDLER FOR NOT FOUND SET cur1_done = TRUE;
 
 OPEN cur1;
 cur1_loop: LOOP
-FETCH FROM cur1 INTO v_parental_name, v_alternative;
     
+    FETCH FROM cur1 INTO v_parental_name, v_alternative;
     IF cur1_done then
         CLOSE cur1;
         LEAVE cur1_loop;
@@ -109,8 +109,8 @@ FETCH FROM cur1 INTO v_parental_name, v_alternative;
     
     OPEN cur2;
     cur2_loop: LOOP
-    FETCH FROM cur2 INTO v_gene_name;
     
+      FETCH FROM cur2 INTO v_gene_name;
       IF cur2_done then
         SET cur1_done = FALSE;
         CLOSE cur2;
@@ -123,8 +123,8 @@ FETCH FROM cur1 INTO v_parental_name, v_alternative;
       
       OPEN cur3;
       cur3_loop: LOOP
-      FETCH FROM cur3 INTO v_figure_id;
       
+        FETCH FROM cur3 INTO v_figure_id;
         IF cur3_done then
           SET cur1_done = FALSE;
           SET cur2_done = FALSE;

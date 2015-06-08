@@ -10,7 +10,7 @@
 
 # Setting up django's project full path.
 import sys
-sys.path.insert(0, 'C:\\Users\\Michael Wong\\Documents\\My Project\\scinapsisdev\\scinapsisdev\\django\\scinapsis')
+sys.path.insert(0, 'C:\\Python27\\scinapsis')
 
 # Setting up django's settings module name.
 # This module is located at C:\Python27\scinapsis\scinapsis\settings.
