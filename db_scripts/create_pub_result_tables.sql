@@ -73,6 +73,7 @@ CREATE TABLE scin_db.pub_tech_prod_result (
   prod_name_id          INT(11),
   product_name          VARCHAR(40),
   sentence              LONGTEXT,
+  rating                INT(3),
   CONSTRAINT fk_tech_prod_rslt_doc_id FOREIGN KEY (doc_id) REFERENCES scin_db.scin_pub_meta(id),
   CONSTRAINT fk_tech_prod_rslt_fig_id FOREIGN KEY (figure_id) REFERENCES scin_db.scin_pub_figure(id),
   CONSTRAINT fk_tech_prod_rslt_tech_id FOREIGN KEY (tech_id) REFERENCES scin_db.pub_technique_list(id),
