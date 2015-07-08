@@ -4,13 +4,14 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-    <title>Scinpasis</title>
+    <title>Scinapsis - The Antibody Search-By-Evidence Engine</title>
 
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
     <meta name="author" content="">
+    {% block metadesc %}
+    {% endblock %}
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.ico">
@@ -24,11 +25,25 @@
     <link rel="stylesheet" href="/static/assets/plugins/font-awesome/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="/static/css/custom.css">
+    <link rel="stylesheet" href="/static/assets/css/theme-colors/purple.css">
     {% block css %}
     {% endblock %}
+
+    <script>
+      dataLayer = [];
+    </script>
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-MLJJK5"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MLJJK5');</script>
+    <!-- End Google Tag Manager -->
 </head>
 
-<body class="boxed-layout container">
+<body>
 <div class="wrapper">
     <!--=== Header ===-->
     <div class="header">
@@ -37,35 +52,25 @@
             <div class="container">
                 <!-- Topbar Navigation -->
                 <ul class="loginbar pull-right">
-                    <li class="languagesSelector">
-                        <i class="fa fa-globe"></i>
-                        <a>Languages</a>
-                        <ul class="languages">
-                            <li class="active">
-                                <a href="#">English <i class="fa fa-check"></i></a>
-                            </li>
-                            <li><a href="#">Chinese</a>
-                            </li>
-                        </ul>
-                    </li>
+
                     <li class="topbar-devider"></li>
                     <li><a href="/admin/">Login</a>
                     </li>
                     <li class="topbar-devider"></li>
                     <li>
-                        <a href="http://www.facebook.com" target="_blank" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
+                        <a href="https://www.facebook.com/pages/Scinapsis/559850744151623" target="_blank" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
                             <i class="fa fa-facebook"></i>
                         </a>
                     </li>
                     <li class="topbar-devider"></li>
                     <li>
-                        <a href="http://www.twitter.com" target="_blank" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
+                        <a href="https://twitter.com/scinapsis" target="_blank" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
                             <i class="fa fa-twitter"></i>
                         </a>
                     </li>
                     <li class="topbar-devider"></li>
                     <li>
-                        <a href="http://www.linkedin.com" target="_blank" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Linkedin">
+                        <a href="https://www.linkedin.com/company/9230387" target="_blank" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Linkedin">
                             <i class="fa fa-linkedin"></i>
                         </a>
                     </li>
@@ -85,7 +90,7 @@
                         <span class="fa fa-bars"></span>
                     </button>
                     <a class="navbar-brand" href="{% url 'home' %}">
-                        <img id="logo-header" src="/static/images/logo_header_small.png" alt="Logo">
+                        <img class="img-responsive" id="logo-header" src="/static/images/scinapsis-logo-h.svg" width="480px" alt="Logo" style="padding: 0.3em">
                     </a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -103,9 +108,13 @@
                             </li>
                         </li>
                         <!-- End Blog -->
+                        <li class="dropdown">
+                            <li><a href="{% url 'about' %}">About</a>
+                            </li>
+                        </li>
                         <!-- Contacts -->
                         <li class="dropdown">
-                            <li><a href="{% url 'contact' %}">Contact Us</a>
+                            <li><a href="{% url 'contact' %}">Contacts</a>
                             </li>
                         </li>
                         <!-- End Contacts -->
@@ -127,15 +136,17 @@
     </div>
 
     <!--=== Footer Version 1 ===-->
-    <div class="footer-v1">
+    <div class="footer-v2">
         <div class="footer parallaxBg">
             <div class="container">
                 <div class="row">
                     <!-- About -->
                     <div class="col-md-5 md-margin-bottom-40">
-                        <img id="logo-footer" class="footer-logo" src="/static/images/logo_footer.png" alt="">
+                        <img id="logo-footer" class="footer-logo" src="/static/images/scinapsis-logo-v.svg" width="150px" alt="">
                         <h2>Our Mission:</h2>
-                        <p>Our name "Scinapsis" comes from the world "synapsis", which means "pairing of homologous chromsomes". Our mission is to "pair", or connects, scientists to reagents they need for different experiments.</p>
+                        <p>Our name "Scinapsis" comes from the word "synapsis", which means "pairing of homologous chromosomes".
+                        Our mission is to pair, or connect, scientists to reagents they need for experiments utilizing 
+                        an unbiased evidence-of-use approach.</p>
                     </div>
                     <!--/col-md-3-->
                     <!-- End About -->
@@ -146,11 +157,27 @@
                     <!-- End Link List -->
                     <!-- Link List -->
                     <div class="col-md-3 md-margin-bottom-40">
-                        <ul class="list-unstyled link-list">
-                            <li>Useful links:</li>
-                            <li>
-                                <br>Contact Us: Info[at]scinapsis[dot]com</li>
-                        </ul>
+                <div class="headline"><h2>Contacts</h2></div>
+                <ul class="list-unstyled who margin-bottom-30">
+                    <li><a href="/contact"><i class="fa fa-envelope"></i> info[at]scinapsis.com</a></li>
+                    <li>
+                        <a href="https://www.facebook.com/pages/Scinapsis/559850744151623" target="_blank" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
+                            <i class="fa fa-facebook"></i> Facebook
+                        </a>
+                    </li>
+                    <li class="topbar-devider"></li>
+                    <li>
+                        <a href="https://twitter.com/scinapsis" target="_blank" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
+                            <i class="fa fa-twitter"></i> Twitter
+                        </a>
+                    </li>
+                    <li class="topbar-devider"></li>
+                    <li>
+                        <a href="https://www.linkedin.com/company/9230387" target="_blank" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Linkedin">
+                            <i class="fa fa-linkedin"></i> Linkedin
+                        </a>
+                    </li>
+                </ul>
                     </div>
                     <!--/col-md-3-->
                     <!-- End Link List -->

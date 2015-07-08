@@ -1,0 +1,156 @@
+{% extends "search/dash_base.html" %}
+
+{% block index_css %}
+    <link rel="stylesheet" href="/static/bower_components/c3/c3.min.css">
+    <style TYPE="text/css">
+    <!--
+        .chart-contain {
+            padding: 2em;
+        }
+        .c3-line {
+            stroke-width: 3px;
+        }
+        .c3-axis-x-label, .c3-axis-y-label {
+            font-size: 1.5em !important;
+        }
+        tspan {
+            font-size: 1.3em;
+        }
+    -->
+    </style>
+{% endblock %}
+
+{% block search_content %}
+<div class="container">
+    <ul class="list-inline">
+        {% for k,v in query_set.items %}
+            {% if v %}
+                <li style="margin: 1px">
+                    <span class="btn-u rounded-2x btn-u-xs btn-purple" >
+                       {{k|upper}}: <strong>{{v}}</strong></span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+<div id='typeahead-result'></div>
+{% if tech_data %}
+    <div class="headline"><h2>Dashboard</h2></div>
+        <div class="row">
+            <div class="col-md-6 chart-contain">
+                <h2 class="text-center">Methods</h2>
+                <div id="chart1"></div>
+            </div>
+            <div class="col-md-6 chart-contain">
+                <h2 class="text-center">Citations</h2>
+                <div id="chart2"></div>
+            </div>
+        </div>
+
+{% else %}
+{% include "search/404.html" %}
+{% endif %}
+</div>
+<!--
+<pre>
+Debug
+{{ tech_data }}
+{{ cite_data }}
+</pre>
+-->
+{% endblock %}
+
+{% block js %}
+<script src="/static/bower_components/d3/d3.min.js"></script>
+<script src="/static/js/c3.min.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+    var data = {{tech_data|safe}};
+
+var data2 = {{cite_data|safe}};
+
+slicer1 = function(array) {
+  return d3.max(array.slice(1));
+};
+
+// var color_func = d3.scale.linear()
+//     .domain([d3.min(data, slicer1), d3.max(data, slicer1)])
+//     .range(["#ff8c00", "#6b486b", "#98abc5"]);
+
+var  inner_scale = d3.scale.log()
+    .domain([d3.min(data, slicer1), d3.max(data, slicer1)]).range([0, 1]);
+var   outer_scale = d3.scale.linear()
+    .domain([0, 0.5, 1])
+    .interpolate(d3.interpolateRgb)
+    .range(["#98abc5", "#ff8c00", "#6b486b"]);
+
+var colors = [];
+
+for ( var i in data)
+{
+
+    v = data[i][1]
+    c = outer_scale(inner_scale(v));
+    colors.push(c);
+}
+
+var chart1 = c3.generate({
+    bindto: '#chart1',
+    data: {
+
+        // iris data from R
+        columns: data,
+        type : 'pie',
+        onclick: function (d, i) {
+            url = "list?q={{request.q|safe}}&t="+d["name"];
+            console.log(url);
+            window.location.href=url;
+        }
+    },
+    color: {
+        //pattern: ["#98abc5", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]
+        pattern: colors
+    }
+});
+
+var chart_type = 'bar'
+if (data2[0].length > 2)
+{
+    chart_type = 'spline'
+}
+var chart2 = c3.generate({
+    bindto: '#chart2',
+    data: {
+        // iris data from R
+        x: 'year',
+        columns: data2,
+        type : chart_type,
+        onclick: function (d, i) {
+            console.log("onclick", d, i);
+        }
+    },
+    color: {
+        //pattern: ["#98abc5", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]
+        pattern: colors
+    },
+    axis: {
+        x: {
+            label: {
+                text:'Year',
+                position:'inner-end'
+            }
+        },
+        y: {
+            label: {
+                text: '# of Citations',
+                position: 'outer-top',
+            }
+        }
+    },
+    padding: {
+        right: 10
+    }
+});
+//        App.init();
+    });
+</script>
+{% endblock %}

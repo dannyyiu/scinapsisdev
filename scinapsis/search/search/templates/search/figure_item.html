@@ -1,0 +1,27 @@
+{% load search_filters %}
+        <div class="headline">
+            <h3>{{figure.doc.title}} <br />
+            <small>{{figure.doc.author}}</small>
+            </h3>
+        </div>
+
+        <ul class="list-inline citation-tags">
+
+            <li><span class="btn-u btn-brd rounded-2x btn-u-xs btn-u-default"><i class="icon-book2"></i>
+            {{figure.doc.publisher}} {{figure.doc.pub_date|date:'Y'}}</span></li>
+
+            <li><span class="btn-u btn-brd rounded-2x btn-u-xs btn-u-default"><i class="icon-book2"></i>
+            Cited by {{figure.doc.citation}}</span></li>
+        </ul>
+
+        <div style="text-align:center">
+            <img class="img-responsive img-bordered center-block" src="{{figure.url | plosone_figure_url:"medium" }}" />
+        </div>
+
+        <div class="headline">
+            <h4></span>{{figure.header}}</h4>
+        </div>
+
+        <p>
+        {{figure.content|safe}}
+        </p>

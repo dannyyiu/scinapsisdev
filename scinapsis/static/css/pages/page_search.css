@@ -1,7 +1,7 @@
 /*Page Search
 ------------------------------------*/
 /*Search Block*/
-.search-block {
+.search-block, .panels-w-bg {
 
 	padding: 10em 0;
 	text-align: center;
@@ -13,8 +13,13 @@
     background-position: center;
     background-repeat: repeat-y, repeat;
     background-attachment: fixed;
-    background-size: auto, 200px;
+    background-size: 100%, 150px;
 }
+.panels-w-bg {
+    background-image: url('../../images/white_shadow_mid.png'), url('../../images/search_bg_side_bw.svg');
+    padding: 3em 0;
+}
+
 
 .search-block:before {
 	top: 0;

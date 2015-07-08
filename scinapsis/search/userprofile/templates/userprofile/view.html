@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="/static/assets/plugins/sky-forms/version-2.0.1/css/custom-sky-forms.css">
+<link rel="stylesheet" href="/static/assets/css/pages/profile.css">
+<link rel="stylesheet" href="/static/assets/plugins/line-icons/line-icons.css">
+<link rel="stylesheet" href="/static/assets/plugins/font-awesome/css/font-awesome.min.css">
+
+{% endblock %}
+{% block base_content %}
+<div class="profile content container">
+<div class="row">
+
+                <!--Left Sidebar-->
+                <div class="col-md-3 md-margin-bottom-40">
+                    <div>
+                    {% if user.userprofile and user.userprofile.image %}
+                        <img class="img-responsive profile-img margin-bottom-20" src="{{ user.userprofile.image.url }}">
+                    {% else %}
+                        <img class="img-responsive profile-img margin-bottom-20" src="{% static 'images/profile_unknown_sm.png' %}">
+                    {% endif %}
+                    </div>
+                    <h2>{{user.username}}</h2>
+
+
+                    <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
+                        <li class="list-group-item active">
+                            <a href="profile_settings.html"><i class="fa fa-user"></i> Profile</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="profile_settings.html"><i class="fa fa-cog"></i> Settings</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!--End Left Sidebar-->
+
+<div class="col-md-9">
+                    <!--Profile Body-->
+                    <div class="tag-box tag-box-v3">
+                        <div class="profile-bio">
+
+                                    <h2>Edward Rooster</h2>
+                                    <span><strong>Job:</strong> Web Developer</span>
+                                    <span><strong>Position:</strong> Web Designer</span>
+                                    <hr>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eget massa nec turpis congue bibendum. Integer nulla felis, porta suscipit nulla et, dignissim commodo nunc. Morbi a semper nulla.</p>
+                                    <p>Proin mauris odio, pharetra quis ligula non, vulputate vehicula quam. Nunc in libero vitae nunc ultricies tincidunt ut sed leo. Sed luctus dui ut congue consequat. Cras consequat nisl ante, nec malesuada velit pellentesque ac. Pellentesque nec arcu in ipsum iaculis convallis.</p>
+                        </div><!--/end row-->
+                        </div>
+
+                    </div>
+                    <!--End Profile Body-->
+
+
+
+    <div class="col-md-6">
+    </div>
+</div>
+</div>
+{% endblock %}

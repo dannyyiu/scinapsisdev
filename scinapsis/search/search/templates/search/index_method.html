@@ -1,0 +1,45 @@
+            <form class="sky-form sky-form-purple" action="list">
+                <fieldset>
+                <section class="row">
+                    <label class="label col-sm-3"><span class="icon-company"></span></label>
+                    <select name="supplier">
+                        <option value="none" disabled>Company</option>
+                        {% for s in suppliers %}
+                        <option value="{{s.supplier}}"
+                            {% if query_set.company == s %}
+                                selected
+                            {% endif %}
+                        >{{s.supplier}}</option>
+                        {% endfor %}
+                    </select>
+                </section>
+
+                <section class="row">
+                    <label class="label col-sm-3"><span class="icon-host"></span></label>
+                    <select name="host">
+                        <option value="none"  disabled>Host</option>
+                            {% for h in hosts %}
+                            <option value="{{h.prod__host}}"
+                                {% if query_set.host == s %}
+                                    selected
+                                {% endif %}>
+                                {{h.prod__host}}</option>
+                            {% endfor %}
+                    </select>
+                </section>
+
+                <section class="row">
+                    <label class="label col-sm-3"><span class="icon-target2"></span></label>
+                    <div class="col-sm-3">
+                        <label class="checkbox"><input type="checkbox" name="reactivity_human" /><i></i>Human</label>
+                        <label class="checkbox"><input type="checkbox" name="reactivity_mouse" /><i></i>Mouse</label>
+                    </div>
+                </section>
+
+
+
+                </fieldset>
+                <footer>
+                <input class="btn-u" type="submit" />
+                </footer>
+            </form>

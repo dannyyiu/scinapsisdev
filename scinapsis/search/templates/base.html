@@ -1,0 +1,180 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>Scinapsis - The Antibody Search-By-Evidence Engine</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="">
+    {% block metadesc %}
+    {% endblock %}
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="/static/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/assets/css/style.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/static/assets/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="/static/assets/plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/static/css/my_theme.css">
+    <link rel="stylesheet" href="/static/css/custom.css">
+
+    <link rel="stylesheet" href="/static/assets/plugins/icomoon/style.css">
+
+    <style type="text/css">
+    <!--
+        @media (min-width: 992px)
+        .header-v1 .open > .dropdown-menu {
+          display: block;
+        }
+        
+    -->
+    </style>
+    {% block css %}
+    {% endblock %}
+
+    <script>
+      dataLayer = [];
+    </script>
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-MLJJK5"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MLJJK5');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body>
+<div class="wrapper">
+    {% block base_header %}
+    {% endblock %}
+
+
+    <div id="base_content">
+
+        {% block base_content %}
+        {% endblock %}
+
+    </div>
+
+    <!--=== Footer Version 1 ===-->
+    <div class="footer-v2">
+        <div class="footer parallaxBg">
+            <div class="container">
+                <div class="row">
+                    <!-- About -->
+                    <div class="col-md-5 md-margin-bottom-40">
+                        <img id="logo-footer" class="footer-logo" src="/static/images/scinapsis-logo-v.svg" width="150px" alt="">
+                        <h2>Our Mission:</h2>
+                        <p>Our name "Scinapsis" comes from the word "synapsis", which means "pairing of homologous chromosomes".
+                        Our mission is to pair, or connect, scientists to reagents they need for experiments utilizing 
+                        an unbiased evidence-of-use approach.</p>
+                    </div>
+                    <!--/col-md-3-->
+                    <!-- End About -->
+                    <!-- Link List -->
+                    <div class="col-md-3 md-margin-bottom-40">
+                    </div>
+                    <!--/col-md-3-->
+                    <!-- End Link List -->
+                    <!-- Link List -->
+                    <div class="col-md-3 md-margin-bottom-40">
+                <div class="headline"><h2>Contacts</h2></div>
+                <ul class="list-unstyled who margin-bottom-30">
+                    <li><a href="/contact"><i class="fa fa-envelope"></i>info[at]scinapsis.com</a></li>
+                </ul>
+                    </div>
+                    <!--/col-md-3-->
+                    <!-- End Link List -->
+                </div>
+            </div>
+        </div>
+        <!--/footer-->
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>
+                            2015 &copy; All Rights Reserved.
+                            <a href='$'>Privacy Policy</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/copyright-->
+    </div>
+<!--=== End Footer Version 1 ===-->
+</div>
+<!--/wrapper-->
+
+
+<!-- JS Global Compulsory -->
+<script type="text/javascript" src="/static/assets/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/static/assets/plugins/jquery/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- JS Implementing Plugins -->
+<script type="text/javascript" src="/static/assets/plugins/back-to-top.js"></script>
+<script src="/static/js/ajax_setup.js"></script>
+<script src="/static/js/typeahead.bundle.js"></script>
+
+
+
+<script type="text/javascript">
+// Type ahead / suggestion function
+jQuery(document).ready(function() {
+ // Initializes the data source for the suggestion engine
+ var productName = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace,
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  prefetch: '/typeahead-search/', // Important for browser caching to increase speed
+  remote: {
+    url: '/typeahead-search/?query=%QUERY',
+    wildcard: '%QUERY'
+  }
+});
+ 
+$('.typeahead').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 2,
+  },
+  {name: 'name',
+  display: 'name',
+  source: productName,
+  limit: 100,
+  
+});  
+
+// Callback after selection is made
+$('.typeahead').bind('typeahead:select', function(ev, suggestion) {
+   console.log(suggestion)
+    url = "list?q="+suggestion.name+"&t="+"";           
+    window.location.href=url; 
+});   
+        
+    });
+</script>
+
+{% block js %}
+{% endblock %}
+
+<!--[if lt IE 9]>
+    <script src="/static/assets/plugins/respond.js"></script>
+    <script src="/static/assets/plugins/html5shiv.js"></script>
+    <script src="/static/assets/js/plugins/placeholder-IE-fixes.js"></script>
+<![endif]-->
+
+</body>
+</html>

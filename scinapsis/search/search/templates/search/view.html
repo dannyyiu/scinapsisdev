@@ -1,0 +1,205 @@
+{% extends "search/index_base.html" %}
+{% load search_filters %}
+{% block index_css %}
+
+<style TYPE="text/css">
+<!--
+
+.color-purple a {
+    color: #9b6bcc !important;
+}
+
+.inner-results {
+    margin-bottom: 3em;
+}
+-->
+</style>
+
+<link href="/static/assets/css/pages/blog_masonry_3col.css" rel="stylesheet">
+{% endblock %}
+{% block search_content %}
+<div class="container ">
+    <div class="col-md-9">
+    <div class="headline">
+        <h2><span class="icon-lab"></span>{{pinfo.product_desc|removetags:"name region_id value" }}</h2>
+     </div>
+    <ul class="list-inline">
+    <li><a class="btn-u rounded-2x" href="{{pinfo.url}}"><span class="icon-cart"></span> Product Page</a></li>
+    <li><a class="btn-u btn-brd rounded-2x" href="#"><span class="icon-heart"></span> Favorite</a></li>
+    <li><a class="btn-u btn-brd rounded-2x" href="#"><span class="icon-share"></span> Share</a></li>
+
+    </ul>
+
+    <p>
+    {{ pinfo.immunogen }}
+    </p>
+    <h4>
+    <dl class="dl-horizontal">
+    <dt>Company <span class="icon-company"></span></dt>
+    <dd><a href="{{pinfo.url}}">{{pinfo.supplier.supplier}}</a></dd>
+
+                <dt>Target <span class="icon-target2"></span> </dt>
+                <dd>
+                {% if pinfo.reactivity_human %}
+                    <span>Human</span>
+                {% endif %}
+                {% if pinfo.reactivity_mouse %}
+                    <span>Mouse</span>
+                {% endif %}
+                </dd>
+
+                <dt>Host <span class="fa fa-paw"></span></dt>
+                <dd>{{pinfo.host}}</dd>
+    </dl>
+    </h4>
+
+    {# ------- citations --------#}
+    {% regroup docs by doc__title as docs_grp %}
+    <div class="headline">
+        <h3>Citations ({{ docs_grp|length }})</h3>
+    </div>
+    {% for item in docs_grp %}
+        {% with item.list.0 as it %}
+        <div class="inner-results">
+            <h5 class="citation"><a href="{{it.doc__src_address}}">{{item.grouper}}</a></h5>
+            <h5 class="citation cite-author">{{it.doc__author|author_format}}</h5>
+
+            <ul class="list-inline citation-tags">
+                <li><span class="btn-u btn-brd rounded-2x btn-u-xs btn-u-default"><i class="icon-book2"></i> Cited by {{it.doc__citation}}</span></li>
+                <li><span class="btn-u btn-brd rounded-2x btn-u-xs btn-u-default"><i class="icon-book2"></i> {{it.doc__publisher}} {{it.doc__pub_date| date:'Y'}}</span></li>
+                <!--
+                <li><span class="btn-u btn-brd rounded-2x btn-u-default btn-u-xs "><span class="icon-barcode colored"></span> DOI:{{it.doc__doc_id}}</span></li>
+                -->
+                {% for i in item.list %}
+                <li><span class="btn-u btn-brd rounded-2x btn-u-default btn-u-xs "><i class="icon-microscope">
+                    </i>{{i.technique_group}}</span></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endwith %}
+    {% endfor %}
+
+    {# ------- figures --------#}
+
+    {% regroup figures by figure_id as figure_grp %}
+
+    <div class="headline"><h3>Figures ({{ figure_grp|length }})</h3></div>
+    <div class="grid-boxes masonry" style="margin-bottom: 1em">
+
+    {% for fitem in figure_grp %}
+        {% with fitem.list.0 as fit %}
+            <div class="grid-boxes-in masonry-brick thumbnail thumbnail-style" style="width:256px">
+                    <p><strong>{{ fit.doc__title}} - {{fit.doc__publisher}} {{fit.doc__pub_date|date:'Y'}}</h6></strong></p>
+                    <a href="/figureview/{{ fit.figure_id }}"
+                            data-toggle="modal" data-target="#figure-modal-lg">
+                    <img class="img-responsive img-bordered" src="{{fit.figure__url | plosone_figure_url:"medium" }}" />
+                    </a>
+                    <div class="caption">
+                        <p>{{ fit.figure__header}}</p>
+                        <ul class="list-inline">
+                        {% for i in fitem.list %}
+                            <li><span class="btn-u btn-brd btn-u-default rounded-2x btn-u-xs "><span class="icon-microscope">
+                                </span>{{i.technique_group}}</span></li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+            </div>
+        {% endwith %}
+    {% endfor %}
+    </div>
+
+
+    <div class="text-center">
+            <ul class="pagination">
+                <li>
+                    {% if data.has_previous %}
+                        <a href="?page={{ data.previous_page_number }}">previous</a>
+                    {% endif %}
+                </li>
+                {% for p in data.paginator.page_range %}
+                <li>
+                    {% if p == data.number %}
+                        <a href="#">{{ data.number }}</a>
+                    {% else %}
+                        <a href="?page={{p}}">{{p}}</a>
+                    {% endif %}
+
+                </li>
+                {% endfor %}
+                <li>
+                    {% if data.has_next %}
+                        <a href="?page={{ data.next_page_number }}">next</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">Related</div>
+            <div class="panel-body">
+
+            </div>
+        </div>
+
+        {% include "search/widget_search_history.html" %}
+    </div>
+
+    <div class="modal fade" id="figure-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/static/assets/plugins/masonry/jquery.masonry.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  $('body').on('hidden.bs.modal', '.modal', function () {
+    $(this).removeData('bs.modal');
+  });
+
+    var $container = $('.masonry');
+
+    var gutter = 30;
+    var min_width = 128;
+
+    $container.imagesLoaded( function(){
+        $container.masonry({
+            itemSelector : '.grid-boxes-in',
+            gutterWidth: gutter,
+            isAnimated: true,
+              columnWidth: function( containerWidth ) {
+                var box_width = (((containerWidth - 2*gutter)/3) | 0) ;
+
+                if (box_width < min_width) {
+                    box_width = (((containerWidth - gutter)/2) | 0);
+                }
+
+                if (box_width < min_width) {
+                    box_width = containerWidth;
+                }
+
+                $('.grid-boxes-in').width(box_width);
+
+                return box_width;
+              }
+        });
+    });
+});
+
+    jQuery(document).ready(function() {
+        App.init();
+    });
+</script>
+{% endblock %}

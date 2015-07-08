@@ -6,9 +6,8 @@
 	text-align: center;
 	position: relative;
 	margin-bottom: 0px;
-		border: 1px solid #C8C8C8;
-
-	background: url(../../img/bg/7.jpg) 100% 0 repeat fixed;		
+	border: 1px solid #C8C8C8;
+	/*background: url(../../img/bg/7.jpg) 100% 0 repeat fixed;*/
 }
 
 .search-block:before {
@@ -18,6 +17,14 @@
 	height: 100%; 
 	content: " ";
 	position: absolute;
+}
+
+.search-block-bg {
+	background-image: url('../../img/bg/white_shadow_mid.png'), url('../../img/bg/search_bg_side1.svg');
+	background-position: center;
+	background-repeat: repeat-y, repeat;
+	background-attachment: fixed;
+	background-size: auto, 200px;
 }
 
 .search-block h1 {

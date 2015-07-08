@@ -1,71 +1,65 @@
 {% extends "base.html" %}
+{% load bootstrap %}
 {% block css %}
-	    <link rel="stylesheet" href="/static/assets/plugins/flexslider/flexslider.css">
+    <link rel="stylesheet" href="/static/assets/plugins/css/animate.css">
+    <link rel="stylesheet" href="/static/assets/plugins/countdown/css/countdown.css">
+    <!-- CSS Page Style -->
+    <link rel="stylesheet" href="/static/assets/css/pages/page_coming_soon.css">
+    <!-- CSS Theme -->
+    <link rel="stylesheet" href="/static/assets/css/theme-colors/purple.css">
 
-	    <!-- CSS Page Style -->
-	    <link rel="stylesheet" href="/static/assets/css/pages/page_contact.css">
+    <link rel="stylesheet" href="/static/assets/css/themes/headers/default.css" id="style_color-header-1">
 
-	    <!-- CSS Theme -->
-	    <link rel="stylesheet" href="/static/assets/css/theme-colors/purple.css">
-
-	    <!-- CSS Customization -->
-	    <link rel="stylesheet" href="/static/assets/css/custom.css">
-        {% endblock %}
+{% endblock %}
 
 {% block base_content %}
+<!--=== Content Part ===-->
+<div class="container">
+        <div class="row margin-bottom-30">
+            <div class="col-md-9 mb-margin-bottom-30">
+                <div class="headline"><h2>Contact Scinapsis</h2></div>
+                <p>Want to drop us a line? Feel free to inqure about our product and services below. </p>
 
-   <!--=== Breadcrumbs ===-->
-       <div class="breadcrumbs">
-           <div class="container">
-               <h1 class="pull-left">Our Contacts</h1>
-           </div>
-       </div><!--/breadcrumbs-->
-       <!--=== End Breadcrumbs ===-->
+                <form method='POST' action=''> {% csrf_token %}
+                {{form|bootstrap}}
+                    <p><input type="submit" class="btn-u btn-success"></p>
+                </form>
 
-       <!--=== Content Part ===-->
-       <div class="container content">
-           <div class="row margin-bottom-30">
-               <div class="col-md-9 mb-margin-bottom-30">
-                  <h2><u>Who we are?</u></h2>
-                   <p>Scinapsis is founded by a group of passionate life science researchers at U of T with an aim to help fellow scientists to find best reagents for their experiments in a quick and simple manner.</p><br>
-                 <h2><u>Search-by-evidence</u></h2>
-                 <p><b>Peer-reviewed publications are the new catalog for laboratory consumables.</b> It is a common practice for researchers to look for evidence-of-use in literature before buying a new reagent. Scinapsis is a service in which sceintists can <b>quickly</b> and <b>easily</b> look for evidence-of-use for a particular reagent in peer-reviewed literatures. We allow researchers to search a reagent by evidence, not by catalogue number.</p><br>
-               </div><!--/col-md-9-->
+            </div><!--/col-md-9-->
 
-               <div class="col-md-3">
-                   <!-- Google Map -->
-                   <div id="map" class="map map-box map-box-space1 margin-bottom-40">
-                   </div><!---/map-->
-                   <!-- End Google Map -->
+        </div><!--/row-->
+</div>
 
-                   <!-- Contacts -->
-                   <div class="headline"><h2>Contacts</h2></div>
-                   <ul class="list-unstyled who margin-bottom-30">
-                       <li></i>Mount Sinai Hospital</li>
-                       <li></i>610 University Ave, Toronto, On, M5G 2M9</li>
-                       <li></i>iInfo[at]scinapsis[dot]com</li>
-                   </ul>
-                   <!-- End Contacts -->
-               </div><!--/col-md-3-->
-           </div><!--/row-->
-       </div><!--/container-->
-       <!--=== End Content Part ===-->
+{% endblock %}
 
-      {% endblock %}
-{% block js %}
-<!-- JS Implementing Plugins -->
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-<script type="text/javascript" src="/static/assets/plugins/gmap/gmap.js"></script>
+{% block js%}
+<script type="text/javascript" src="/static/assets/plugins/countdown/jquery.countdown.js"></script>
+<script type="text/javascript" src="/static/assets/plugins/backstretch/jquery.backstretch.min.js"></script>
 <!-- JS Customization -->
 <script type="text/javascript" src="/static/assets/js/custom.js"></script>
 <!-- JS Page Level -->
 <script type="text/javascript" src="/static/assets/js/app.js"></script>
-<script type="text/javascript" src="/static/assets/js/pages/page_contacts.js"></script>
+
+<script>
+    $.backstretch([
+      ], {
+        fade: 1000,
+        duration: 7000
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        var austDay = new Date();
+        austDay = new Date(austDay.getFullYear(), 3 - 1, 1);
+        $('#defaultCountdown').countdown({until: austDay});
+        $('#year').text(austDay.getFullYear());
+    });
+</script>
+
 <script type="text/javascript">
     jQuery(document).ready(function() {
         App.init();
-        App.initSliders();
-        ContactPage.initMap();
     });
 </script>
 {% endblock %}

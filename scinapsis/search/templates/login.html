@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block base_header %}
+    <!--=== Header ===-->
+    <div class="header-v1">
+
+        <!-- End Topbar -->
+        <!-- Navbar -->
+        <div class="navbar navbar-default mega-menu" role="navigation">
+            <div class="container">
+
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="fa fa-bars"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        <img class="img-responsive" id="logo-header" src="/static/images/scinapsis-logo-h.svg" width="320px" alt="Logo">
+                    </a>
+                </div>
+            </div>
+
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav">
+                        <!-- Blog -->
+                        <li >
+                            <li><a href="http://www.scinapsis.com/blog/">Blog</a>
+                            </li>
+                        </li>
+                        <!-- End Blog -->
+                        <li >
+                            <li><a href="http://www.scinapsis.com/about/">About</a>
+                            </li>
+                        </li>
+                        <!-- Contacts -->
+                        <li >
+                            <li><a href="http://www.scinapsis.com/contact/">Contacts</a>
+                            </li>
+                        </li>
+                        <!-- End Contacts -->
+                    </ul>
+                </div>
+                <!--/navbar-collapse-->
+            </div>
+        </div>
+        <!-- End Navbar -->
+    </div>
+    <!--=== End Header ===-->
+{% endblock %}
+
+
+{% block base_content %}
+ <div class="container" style="">
+
+
+   {% if user and not user.is_anonymous %}
+        <div class="row">
+        <p>Hello {{ user.get_full_name|default:user.username }}!<p>
+        <p><a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a></p>
+        </div>
+   {% else %}
+
+    <div class="row">
+
+        <div class="col-md-6 center-block" style="float:none">
+            <h2>Login</h2>
+            <form method='POST' action='/'> {% csrf_token %}
+            {{form|bootstrap}}
+            <p><input type="submit" class="btn-u btn-success" value="Login"></p>
+            </form>
+
+        </div>
+    </div>
+    <div class="row">
+
+     </div>
+   {% endif %}
+
+ </div>
+{% endblock %}

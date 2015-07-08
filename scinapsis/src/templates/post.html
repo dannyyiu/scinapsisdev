@@ -1,236 +1,158 @@
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
-<head>
-    <title>Scinpasis</title>
-	<!-- Meta -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% extends "base.html" %}
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.ico">
+    {% block metadesc %}
+    {% if post.meta %}
+    <meta property="og:title" content="Scinapsis - {{ post.title }}">
+    <meta name="description" content="{{ post.meta }}">
+    {% endif %}
+    {% endblock %}
 
-    <!-- CSS Global Compulsory -->
-    <link rel="stylesheet" href="/static/assets/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/assets/css/style.css">
-
-    <!-- CSS Implementing Plugins -->
-    <link rel="stylesheet" href="/static/assets/plugins/line-icons/line-icons.css">
-    <link rel="stylesheet" href="/static/assets/plugins/font-awesome/css/font-awesome.min.css">
-
+    {% block css %}
     <!-- CSS Page Style -->
-    <link href="/static/assets/css/pages/blog_masonry_3col.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/pages/blog_magazine.css">
+    <link rel="stylesheet" href="/static/assets/css/pages/blog.css">
 
     <!-- CSS Theme -->
     <link rel="stylesheet" href="/static/assets/css/theme-colors/purple.css">
 
-    <!-- CSS Customization -->
-    <link rel="stylesheet" href="/static/assets/css/custom.css">
-	</head>
+    {% endblock %}
 
-<body class="boxed-layout container">
-<div class="wrapper">
-     <!--=== Header ===-->
-	    <div class="header">
-	        <!-- Topbar -->
-	        <div class="topbar">
-	            <div class="container">
-	                <!-- Topbar Navigation -->
-	                <ul class="loginbar pull-right">
-	                    <li class="languagesSelector">
-	                        <i class="fa fa-globe"></i>
-	                        <a>Languages</a>
-	                        <ul class="languages">
-	                            <li class="active">
-	                                <a href="#">English <i class="fa fa-check"></i></a>
-	                            </li>
-	                        </ul>
-	                    </li>
-	                    <li class="topbar-devider"></li>
-	                    <li><a href="/admin/">Login</a></li>
-	                    <li class="topbar-devider"></li>
-                             <li>
-                                   <a href="http://www.facebook.com" target="_blank" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
-                                   <i class="fa fa-facebook"></i>
-                                   </a>
-	                           </li>
-	                           <li class="topbar-devider"></li>
-	                           <li>
-				    <a href="http://www.twitter.com" target="_blank" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
-		                    <i class="fa fa-twitter"></i>
-				    </a>
-	                            </li>
-		                    <li class="topbar-devider"></li>
-                                    <li>
-                                    <a href="http://www.linkedin.com" target="_blank" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Linkedin">
-		    	            <i class="fa fa-linkedin"></i>
-                                    </a>
-	                            </li>
-                    <!-- End Social Links -->
-	                </ul>
-	                <!-- End Topbar Navigation -->
-	            </div>
-	        </div>
-        <!-- End Topbar -->
+{% block base_content %}
 
-		<!-- Navbar -->
-        <div class="navbar navbar-default mega-menu" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="fa fa-bars"></span>
-                    </button>
-                    <a class="navbar-brand" href="{% url 'home' %}">
-                        <img id="logo-header" src="/static/assets/img/logo1-default(2).png" alt="Logo">
-                    </a>
-                </div>
+<!--=== Content ===-->
+<div class="container content blog-page blog-item">
 
-               <!-- Collect the nav links, forms, and other content for toggling -->
-		    <div class="collapse navbar-collapse navbar-responsive-collapse">
-		    <ul class="nav navbar-nav">
-		    <!-- Home -->
-		    <li class="dropdown">
-		    <li><a href="{% url 'home' %}">Home</a></li>
-		    </li>
-		    <!-- End Home -->
+    <!--=== Blog ===-->
 
-		    <!-- Blog -->
-		    <li class="dropdown">
-		
-		    </li>
-		    <!-- End Blog -->
+    <div class="blog margin-botom-40 col-md-9">
+        {% if post.postimage_set.values %}
 
-		    <!-- Contacts -->
-		    <li class="dropdown">
-		    <li><a href="{% url 'contact' %}">Contact Us</a></li>
-		    </li>
-		    <!-- End Contacts -->
-		    </ul>
-                </div><!--/navbar-collapse-->
-            </div>
-        </div>
-        <!-- End Navbar -->
-    </div>
-    <!--=== End Header ===-->
-    
-    <h2><a href="/blog/{{post.id}}">{{ post.title }}</a></h2>
-    <div class="post_meta">
-	on {{ post.created}}
-    </div>
-    <div class="post_body">
-	{{ post.body|safe|linebreaks }}
-    </div>
-    <div class="tags">
-	{% for tag in post.tags.all %}
-	<a href="/blog/tag/{{tag}}">{{tag}}</a>
-	{% if not forloop.last %}, {% endif %}
-	{% endfor %}
-    </div>
-    
-       <!--=== Content Part ===-->
-       <div class="blog_masonry_3col">
-           <div class="container content grid-boxes">
-               <div class="grid-boxes-in">
-                   <img class="img-responsive" src="/static/assets/img/masonry/blog2.jpg">
-                   <div class="grid-boxes-caption">
-                       <h3><a href="actualblog.html">Spotlight Interview with Dr. Filippos Pedis</a></h3>
-                       <ul class="list-inline grid-boxes-news">
-                           <li><span>By</span> <a href="#">Tom Leung</a></li>
-                           <li>|</li>
-                           <li><i class="fa fa-clock-o"></i> Date </li>
-                           <li>|</li>
-                           <li><a href="#"><i class="fa fa-comments-o"></i> Comments</a></li>
-                       </ul>
-                       <p>For this week&#8216s Spotlight Interview, we invited Dr. Filippos Pedis at the Lunenfeld-Tanenbaum Research Institute, Toronto, to share with us his thoughts on the current research environment, and also a little about his own projects.</p>
-                   </div>
-               </div>
+        <!--- Blog title -->
+        <h2>{{ post.title }}</h2>
 
-               <div class="grid-boxes-in">
-              	                <iframe title="YouTube video player" class="youtube-player" type="text/html"
-			  					width="100%" height="305" scrolling="no" src="http://www.youtube.com/embed/w4jBQqkVt1I"
-			  					frameborder="0" ebkitAllowFullScreen mozallowfullscreen allowFullScreen>
-					</iframe>
-              </div>
-           </div><!--/container-->
-       </div>
-    <!--=== End Content Part ===-->
+        {% if banner %}
+                {% if post.postimage_set.values.0.is_video %}
+                <iframe width="100%" height="600" src="{{ post.postimage_set.values.0.url|safe }}" frameborder="0" allowfullscreen></iframe>
 
-    <!--=== Footer Version 1 ===-->
-    <div class="footer-v1">
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <!-- About -->
-                    <div class="col-md-5 md-margin-bottom-40">
-                        <img id="logo-footer" class="footer-logo" src="/static/assets/img/small2.png" alt="">
-                        <h2>Our Mission:</h2>
-                        <p>Our name "Scinapsis" comes from the world "synapsis", which means "pairing of homologous chromsomes". Our mission is to "pair", or connects, scientists to reagents they need for different experiments.</p>
-                    </div><!--/col-md-3-->
-                    <!-- End About -->
- 				 <!-- Link List -->
-                    <div class="col-md-3 md-margin-bottom-40">
-                    </div><!--/col-md-3-->
-                    <!-- End Link List -->
-                    <!-- Link List -->
-                    <div class="col-md-3 md-margin-bottom-40">
-                        <ul class="list-unstyled link-list">
-                            <li>Useful links:</li>
-                            <li><br>Contact Us: Info[at]scinapsis[dot]com</li>
-                        </ul>
-                    </div><!--/col-md-3-->
-                    <!-- End Link List -->
-                </div>
-            </div>
-        </div><!--/footer-->
+                {% else %}
+                <img class="img-responsive" src="/media/{{ banner.0.image|slice:'2:' }}">
 
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p>
-                            2015 &copy; All Rights Reserved.
-                           <a href='{% url 'privacy' %}'>Privacy Policy</a>
-                        </p>
+                {% endif %}
+        {% endif %}
+        <!-- Blog meta -->
+        <div class="blog-post-tags">
+            <ul class="list-unstyled list-inline blog-info">
+                <li><i class="fa fa-calendar"> {{ post.created | date:"M d, Y" }}</i>
+                </li>
+
+                <li><i class="fa fa-tags">
+                    {% for tag in post.tags.all %}
+                      <a href="/blog/tag/{{tag}}">{{tag}}</a>
+                      {% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    </i>
+                </li>
+            </ul>
+
+
+            <!-- Blog Picture(s) -->
+            {% if images|length > 0 %}
+            <div class="blog-img" style="max-width:40%; float:right; margin: 2em; border: 1px solid #555;">
+                <!-- contraint for image size -->
+                {% if images|length > 1 %}
+                <!-- More than one image -->
+                <div class="carousel slide carousel-v1" id="myCarousel">
+                    <div class="carousel-inner">
+                        {% for imgdata in images %}
+                            {% if forloop.counter == 1 %}
+                            <div class="item active">
+                            {% else %}
+                            <div class="item">
+                            {% endif %}
+                                <!-- Note: filenames are saved in "./fname.jpg" format, require stripping "./" -->
+                                <img class="img-responsive" src="/media/{{ imgdata.image|slice:'2:' }}" alt="">
+                                <div class="carousel-caption"></div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <div class="carousel-arrow">
+                            <a data-slide="prev" href="#myCarousel" class="left carousel-control">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a data-slide="next" href="#myCarousel" class="right carousel-control">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </div>
                     </div>
+                    {% else %}
+                    <!-- One image -->
+                    <img class="img-responsive" src="/media/{{ post.postimage_set.values.0.image|slice:'2:' }}" alt> {% endif %}
                 </div>
-            </div>
-        </div><!--/copyright-->
-    </div>
-    <!--=== End Footer Version 1 ===-->
-</div><!--/wrapper-->
+                {% endif %}
+                <!-- Image end -->
 
-<!-- JS Global Compulsory -->
-<script type="text/javascript" src="/static/assets/plugins/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="/static/assets/plugins/jquery/jquery-migrate.min.js"></script>
-<script type="text/javascript" src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-<!-- JS Implementing Plugins -->
-<script type="text/javascript" src="/static/assets/plugins/back-to-top.js"></script>
-<script type="text/javascript" src="/static/assets/plugins/flexslider/jquery.flexslider-min.js"></script>
-<script type="text/javascript" src="/static/assets/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
-<script type="text/javascript" src="/static/assets/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-<script type="text/javascript" src="/static/assets/plugins/parallax-slider/js/modernizr.js"></script>
-<script type="text/javascript" src="/static/assets/plugins/parallax-slider/js/jquery.cslider.js"></script>
-<script type="text/javascript" src="/static/assets/plugins/masonry/jquery.masonry.min.js"></script>
-<!-- JS Customization -->
-<script type="text/javascript" src="/static/assets/js/custom.js"></script>
+                <!-- Blog content -->
+            </div>
+            {% endif %}
+            <p>
+
+            {% if post.execerpt %}
+                    <div class="tag-box tag-box-v2" style="float: left; margin: 1em;">
+                        <p>{{ post.execerpt|safe|linebreaks }}</p>
+                    </div>
+            {% endif %}
+            {{ post.body| slice:'body_half_len:' | safe | linebreaks }}</p>
+            <!-- Comment Form
+            <hr style="clear:both" />
+
+            <div class="post-comment">
+                <h3>Leave a Comment</h3>
+                <form>
+                    <label>Name</label>
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-7 col-md-offset-0">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <label>Email <span class="color-red">*</span>
+                    </label>
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-7 col-md-offset-0">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <label>Message</label>
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-11 col-md-offset-0">
+                            <textarea class="form-control" rows="8"></textarea>
+                        </div>
+                    </div>
+
+                    <p>
+                        <button class="btn-u" type="submit">Send Message</button>
+                    </p>
+                </form>
+            </div>
+            End Comment Form -->
+        </div>
+    <!--== Blog end ==-->
+            {% include "sidebar.html" %}
+    </div>
+
+
+</div>
+<!--=== Content end ==-->
+
+ {% endblock %}
+{% block js %}
 <!-- JS Page Level -->
 <script type="text/javascript" src="/static/assets/js/app.js"></script>
-<script type="text/javascript" src="/static/assets/js/pages/blog-masonry.js"></script>
+
 <script type="text/javascript">
     jQuery(document).ready(function() {
         App.init();
     });
 </script>
-<!--[if lt IE 9]>
-    <script src="/static/assets/plugins/respond.js"></script>
-    <script src="/static/assets/plugins/html5shiv.js"></script>
-    <script src="/static/assets/js/plugins/placeholder-IE-fixes.js"></script>
-<![endif]-->
-
-</body>
-</html>
+{% endblock %}

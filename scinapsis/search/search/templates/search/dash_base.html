@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style TYPE="text/css">
+<!--
+.search-block {
+    background-image: url('/static/images/white_shadow_mid.png'), url('/static/images/search_bg_side_bw.svg');
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 100%, 50px;
+    padding: 64px 0;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+}
+
+.search_input {
+    border: 1px solid #9b6bcc;
+}
+
+-->
+</style>
+    {% block index_css %}
+    {% endblock %}
+{% endblock %}
+
+{% block base_header %}
+    <!--=== Header ===-->
+    <div class="header-v1">
+        <!-- Topbar -->
+        <div class="topbar-v1">
+            <div class="container">
+                {% include 'userprofile/login_toolbar.html'%}
+            </div>
+        </div>
+
+        <!-- End Topbar -->
+        <!-- Navbar -->
+        <div class="navbar navbar-default mega-menu" role="navigation">
+            <div class="container">
+
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="fa fa-bars"></span>
+                    </button>
+                </div>
+            </div>
+
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav">
+                        <!-- Blog -->
+                        <li >
+                            <li><a href="http://www.scinapsis.com/blog/">Blog</a>
+                            </li>
+                        </li>
+                        <!-- End Blog -->
+                        <li >
+                            <li><a href="http://www.scinapsis.com/about/">About</a>
+                            </li>
+                        </li>
+                        <!-- Contacts -->
+                        <li >
+                            <li><a href="http://www.scinapsis.com/contact/">Contacts</a>
+                            </li>
+                        </li>
+                        <!-- End Contacts -->
+                    </ul>
+                </div>
+                <!--/navbar-collapse-->
+            </div>
+        </div>
+        <!-- End Navbar -->
+    </div>
+    <!--=== End Header ===-->
+{% endblock %}
+
+{% block base_content %}
+
+<!--=== Search Block ===-->
+<div class="search-block">
+    <div class="container">
+        <div class="row">
+        <div class="col-md-6 col-md-offset-3" style="margin-bottom: 1.5em">
+            <a href="/">
+                <img class="img-responsive center-block" src="/static/images/scinapsis-logo-h.svg" width="320px" alt="Logo">
+            </a>
+        </div>
+        </div>
+        <div class="row" style="margin: 0 0.5em">
+        <form method="GET" id = 'search-form' role="search" action="/">
+      
+        <div class="col-sm-8 col-sm-offset-2 input-group">
+                <input type="text" class="form-control typeahead search_input" placeholder="Search" name="q" value="{{query_set.keywords}}">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn-u btn-u-purple"><span class="icon-search"></span></button>
+                </span>
+        </div>
+        </form>
+        </div>
+    </div>
+</div>
+<!--/container-->
+
+<div class="content">
+{% block search_content %}
+{% endblock %}
+</div>
+{% endblock %}

@@ -1,5 +1,24 @@
 /* Add here all your css styles (customizations) */
+body {
+    color: #333;
+}
 
+.citation {
+    margin: 0.1em 0;
+    padding: 0;
+}
+.cite-author {
+    color: #888;
+}
+
+.citation-tags li {
+    margin: 0 3px;
+    padding: 0;
+}
+
+.post_meta {
+    color: #777;
+}
 .footer {
     border-top: 1px solid #ccc;
     background: none;
@@ -8,3 +27,171 @@
 .footer-v1 {
     background: url(/static/images/footer_bg.png) fixed repeat-y transparent;
 }
+
+.caption h3, .grid-boxes-caption h3 {
+    font-size: 20px !important;
+    font-weight: bold !important;
+}
+
+
+/*Panel Dark*/
+.panel-scp {
+   border-color: #a69d9f;
+}
+
+.panel-scp > .panel-heading {
+   background: none;
+   color: #a69d9f !important;
+   border-bottom: 1px solid #a69d9f;
+}
+
+.panel-purple .panel-heading {
+    background: none;
+    color: #9b6bcc !important;
+    border-bottom: 1px solid #9b6bcc;
+}
+
+
+.panel-default .panel-heading {
+    background: none;
+    color: #687074;
+    font-size: 1.2em;
+    padding: 10px 15px;
+}
+
+.panel-body a:hover {
+    color: #9b6bcc;
+}
+
+.panel-title {
+    color: #9b6bcc;
+}
+
+.panel-figure .panel-body {
+    padding: 0;
+}
+
+
+
+.panel-figure .img-bordered {
+    border-color: #9b6bcc;
+}
+
+
+@media (min-width: 992px) {
+    .loginbar .open > .dropdown-menu {
+      display: block !important;
+    }
+
+    .header-v1 .container > .navbar-header,
+    .header-v1 .container-fluid > .navbar-header,
+    .header-v1 .container > .navbar-collapse,
+    .header-v1 .container-fluid > .navbar-collapse {
+        margin-bottom: 20px;
+    }
+
+}
+
+.loginbar .dropdown > a:after, .loginbar .dropdown-submenu > a:after {
+  content: None;
+
+}
+
+.loginbar .dropdown {
+    cursor: pointer;
+}
+
+.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+    background-color: #9b6bcc !important;
+}
+
+.login-panel {
+    width: 40%;
+    margin: 2em auto;
+}
+
+.modal-header {
+    border: none;
+}
+
+.twitter-typeahead {
+  width: 100%;
+  float: left;
+}
+.input-group .twitter-typeahead {
+  display: table-cell !important;
+} 
+    
+    
+ .typeahead,
+.tt-query,
+.tt-hint {
+  width: 396px;
+  
+  padding: 8px 12px;
+  font-size: 24px;
+  line-height: 30px;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  outline: none;
+}
+
+.typeahead {
+  background-color: #fff;
+}
+
+.typeahead:focus {
+  border: 1px solid #814fb5;
+}
+
+.tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+  color: #999
+}
+
+.tt-menu {
+  width: 100%;
+  margin: 12px 0;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  padding: 3px 20px;
+  font-size: 18px;
+  line-height: 24px;
+  
+}
+
+.tt-suggestion:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #814fb5;
+    
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #814fb5;
+
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+

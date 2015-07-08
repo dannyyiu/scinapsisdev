@@ -4,17 +4,19 @@
     <link rel="stylesheet" href="/static/assets/plugins/css/animate.css">
     <link rel="stylesheet" href="/static/assets/plugins/countdown/css/countdown.css">
     <!-- CSS Page Style -->
+    <link rel="stylesheet" href="/static/css/pages/page_search.css">
     <link rel="stylesheet" href="/static/assets/css/pages/page_coming_soon.css">
     <!-- CSS Theme -->
-    <link rel="stylesheet" href="/static/assets/css/theme-colors/pruple.css">
+    <link rel="stylesheet" href="/static/assets/css/theme-colors/purple.css">
 
     <link rel="stylesheet" href="/static/assets/css/themes/headers/default.css" id="style_color-header-1">
 
 {% endblock %}
 
 {% block base_content %}
-<!--=== Content Part ===-->
-<div class="container">
+
+    <div class="search-block coming-soon" style="margin-top: 0; padding: 5em 0">
+
     <!-- Coming Soon Content -->
     <div class="row">
     {% if messages %}]
@@ -26,7 +28,6 @@
     {% endif %}
     </div>
 
-    <div class="col-md-12 coming-soon">
         <h1>Coming Soon!</h1>
         <p>Stay tuned for the exciting alpha launch...</p>
         <br />
@@ -39,12 +40,7 @@
             <!-- /input-group -->
         </form>
     </div>
-</div>
 
-<!-- Coming Soon Plugn -->
-<div class="coming-soon-plugin">
-    <div id="defaultCountdown"></div>
-</div>
 
 {% endblock %}
 
@@ -67,7 +63,7 @@
 <script type="text/javascript">
     $(function () {
         var austDay = new Date();
-        austDay = new Date(austDay.getFullYear() + 1, 3 - 1, 1);
+        austDay = new Date(austDay.getFullYear(), 3 - 1, 1);
         $('#defaultCountdown').countdown({until: austDay});
         $('#year').text(austDay.getFullYear());
     });

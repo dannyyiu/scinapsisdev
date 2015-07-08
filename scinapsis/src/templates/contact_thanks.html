@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% block css %}
+    <link rel="stylesheet" href="/static/assets/plugins/css/animate.css">
+    <link rel="stylesheet" href="/static/assets/plugins/countdown/css/countdown.css">
+    <!-- CSS Page Style -->
+    <link rel="stylesheet" href="/static/assets/css/pages/page_coming_soon.css">
+    <!-- CSS Theme -->
+    <link rel="stylesheet" href="/static/assets/css/theme-colors/purple.css">
+
+    <link rel="stylesheet" href="/static/assets/css/themes/headers/default.css" id="style_color-header-1">
+
+{% endblock %}
+
+{% block base_content %}
+<!--=== Content Part ===-->
+<div class="container">
+        <div class="row margin-bottom-30">
+            <div class="col-md-9 mb-margin-bottom-30">
+                <div class="headline"><h2>Contact Scinapsis</h2></div>
+                <p>Thanks for your interest! We will get back to you as soon as possible.</p>
+
+            </div><!--/col-md-9-->
+
+        </div><!--/row-->
+</div>
+
+{% endblock %}
+
+{% block js%}
+<script type="text/javascript" src="/static/assets/plugins/countdown/jquery.countdown.js"></script>
+<script type="text/javascript" src="/static/assets/plugins/backstretch/jquery.backstretch.min.js"></script>
+<!-- JS Customization -->
+<script type="text/javascript" src="/static/assets/js/custom.js"></script>
+<!-- JS Page Level -->
+<script type="text/javascript" src="/static/assets/js/app.js"></script>
+
+<script>
+    $.backstretch([
+      ], {
+        fade: 1000,
+        duration: 7000
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        var austDay = new Date();
+        austDay = new Date(austDay.getFullYear(), 3 - 1, 1);
+        $('#defaultCountdown').countdown({until: austDay});
+        $('#year').text(austDay.getFullYear());
+    });
+</script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        App.init();
+    });
+</script>
+{% endblock %}

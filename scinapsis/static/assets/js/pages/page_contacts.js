@@ -9,8 +9,9 @@ var ContactPage = function () {
 			  map = new GMaps({
 				div: '#map',
 				scrollwheel: false,
-				lat: 43.657928,
-				lng: -79.390725
+                // medsci 43.66131, -79.39415
+				lat: 43.66131,
+				lng: -79.39415
 			  });
 
 			  var marker = map.addMarker({

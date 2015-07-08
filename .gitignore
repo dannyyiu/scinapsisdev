@@ -9,13 +9,14 @@ __pycache__/
 bin/
 build/
 develop-eggs/
-dist/
+#dist/
 eggs/
 lib/
 lib64/
 parts/
 sdist/
 var/
+migrations-/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -50,3 +51,9 @@ coverage.xml
 docs/_build/
 
 .DS_Store
+.idea
+
+#project specific
+*/media/*
+settings.py
+*dev.*

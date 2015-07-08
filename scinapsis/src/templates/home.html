@@ -1,16 +1,13 @@
 {% extends "base.html" %}
 
+{% block metadesc %}
+    <meta property="og:title" content="Scinapsis - The Antibody Search-By-Evidence Engine">
+    <meta name="description" content="Scinapsis is the antibody search engine that connects researchers with the reagents they need, based on the peer-reviewed evidences they seek.">
+{% endblock %}
+
 {% block css %}
 
-    <link rel="stylesheet" href="/static/assets/plugins/flexslider/flexslider.css">
-    <link rel="stylesheet" href="/static/assets/plugins/parallax-slider/css/parallax-slider.css">
-    <link rel="stylesheet" href="/static/assets/plugins/layer-slider/layerslider/css/layerslider.css">
-    <link rel="stylesheet" href="/static/assets/plugins/revolution-slider/rs-plugin/css/settings.css" type="text/css" media="screen">
-    <!--[if lt IE 9]><link rel="stylesheet" href="/static/assets/plugins/revolution-slider/rs-plugin/css/settings-ie8.css" type="text/css" media="screen"><![endif]-->
 
-    <!-- note: these two below should be called by js but static path is not referenced correctly. requires fix! -->
-    <link rel="stylesheet" href="/static/assets/plugins/layer-slider/layerslider/skins/fullwidth/skin.css">
-    <link rel="stylesheet" href="/static/assets/plugins/layer-slider/layerslider/css/blank.gif">
 
     <!-- CSS Page Style -->
     <link rel="stylesheet" href="/static/css/pages/page_search.css">
@@ -18,43 +15,12 @@
 
     <!-- CSS Theme -->
     <link rel="stylesheet" href="/static/assets/css/theme-colors/purple.css">
+
+    <link rel="stylesheet" href="/static/css/custom.css">
 {% endblock %}
 
 {% block base_content %}
 
-
-<!--=== Slider ===-->
-<div id="layerslider" style="width: 100%; height: 420px; margin: 0px auto;">
-
-    <!-- First slide -->
-    <div class="ls-slide" data-ls="slidedelay:30000;transition2d:25;">
-        <img src="/static/images/sliders/23.png" class="ls-bg" alt="Slide background" />
-    </div>
-    <!--End First Slide-->
-
-    <!--Second Slide-->
-    <div class="ls-slide" style="slidedelay:30000; slidedirection: right; transition2d: 92,93,105; ">
-        <img src="/static/images/sliders/22.png" class="ls-bg" alt="Slide background">
-
-        <span class="ls-s-1" style=" color: #000; line-height:45px; font-weight: 200; font-size: 35px; top:100px; left: 0px; slidedirection : top; slideoutdirection : bottom; durationin : 1000; durationout : 1000; ">
-                   "Peer-reviewed publications are the new catalogues for laboratory reagents."<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-Tom Leung
-                </span>
-    </div>
-    <!--End Second Slide-->
-
-
-    <!--Third Slide-->
-    <div class="ls-slide" style="slidedelay:30000; slidedirection: right; transition2d: 92,93,105; ">
-        <img src="/static/images/sliders/22.png" class="ls-bg" alt="Slide background">
-        <span class="ls-s-1" style=" color: #000; line-height:45px; font-weight: 200; font-size: 35px; top:30px; left: 180px; slidedirection : top; slideoutdirection : bottom; durationin : 1000; durationout : 1000;">
-           <iframe title="YouTube video player" class="youtube-player" type="text/html"
-               width="600" height="350" src="http://www.youtube.com/embed/w4jBQqkVt1I?autoplay=false"
-               frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen>    </iframe></span>
-    </div>
-    <!--End Third Slide-->
-</div>
-<!--/layer_slider-->
-<!--=== End Slider ===-->
 
 
 <!--=== Search Block ===-->
@@ -62,47 +28,34 @@
     <div class="container">
         <div class="col-md-6 col-md-offset-3">
             <h1><span class="color-purple">Search-By-Evidence</span></h1>
+            <form method="get" action="http://search.scinapsis.com" >
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Enter your favorite proteins here...">
+
+                <input type="text" class="form-control" name="q" placeholder="Enter your favorite proteins here...">
                 <span class="input-group-btn">
-                       <button class="btn-u btn-u-purple btn-u-lg" onclick="window.location.href='{% url 'comingsoon' %}'"><i class="fa fa-search"></i></button></span>
-                </form>
+                       <button class="btn-u btn-u-purple btn-u-lg"><i class="fa fa-search"></i></button></span>
+
             </div>
+            </form>
         </div>
     </div>
 </div>
+
 <!--/container-->
 <!--=== End Search Block ===-->
 
 <!--=== Recent Posts ===-->
 <div class="search-block2 parallaxBg">
     <div class="container content">
-        <div class="headline-center-v2 margin-bottom-20">
-            <h2>Recent Blogs</h2>
-            <span class="bordered-icon"><i class="fa fa-th-large"></i></span>
-        </div>
-        <!--/Headline Center V2-->
 
         <div class="row">
-            {% for post in object_list %}
+            {% for post in pinned %}
             <div class="col-sm-4">
-                <div class="thumbnails-v1">
-                    <div class="thumbnail-img">
-                        <img class="img-responsive" src="/static/assets/img/masonry/blog2.jpg" alt="">
-                    </div>
-                    <div class="caption">
-                        <h3><a href="/blog/{{post.id}}">{{ post.title }}</a></h3>
-                        <div class="post_meta">
-                            on {{ post.created}}
-                        </div>
-                        <div class="post_body">
-                            {{ post.body|safe|linebreaks }}
-                        </div>
-                    </div>
-                </div>
+                {% include "blog_item.html" %}
             </div>
             {% endfor %}
         </div>
+
     </div>
 </div>
 
@@ -112,19 +65,5 @@
 
 {% block js %}
 
-<script type="text/javascript" src="/static/assets/plugins/layer-slider/layerslider/js/greensock.js"></script>
-<script type="text/javascript" src="/static/assets/plugins/layer-slider/layerslider/js/layerslider.transitions.js"></script>
-<script type="text/javascript" src="/static/assets/plugins/layer-slider/layerslider/js/layerslider.kreaturamedia.jquery.js"></script>
-<!-- JS Customization -->
-<script type="text/javascript" src="/static/assets/js/custom.js"></script>
-<!-- JS Page Level -->
-<script type="text/javascript" src="/static/assets/js/app.js"></script>
-<script type="text/javascript" src="/static/js/plugins/layer-slider.js"></script>
-<script type="text/javascript">
-    jQuery(document).ready(function() {
-        App.init();
-        //App.initSliders();
-        LayerSlider.initLayerSlider();
-    });
-</script>
+
 {% endblock %}

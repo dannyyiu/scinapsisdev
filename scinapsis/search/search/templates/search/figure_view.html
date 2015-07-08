@@ -1,0 +1,30 @@
+{% extends "search/index_base.html" %}
+{% block index_css %}
+
+<style TYPE="text/css">
+<!--
+
+.color-purple a {
+    color: #9b6bcc !important;
+}
+
+</style>
+
+{% endblock %}
+{% block search_content %}
+
+{% include "search/figure_item.html" %}
+
+{% endblock %}
+
+{% block js %}
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+    jQuery(document).ready(function() {
+        App.init();
+    });
+</script>
+{% endblock %}

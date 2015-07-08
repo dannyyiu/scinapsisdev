@@ -1,0 +1,287 @@
+{% extends "search/index_base.html" %}
+{% load search_filters %}
+{% block index_css %}
+<link rel="stylesheet" href="/static/assets/plugins/sky-forms/version-2.0.1/css/custom-sky-forms.css">
+<link rel="stylesheet" href="/static/assets/plugins/sky-forms/version-2.0.1/css/sky-forms-purple.css">
+<link rel="stylesheet" href="/static/bower_components/owl-carousel2/dist/assets/owl.carousel.css">
+<link rel="stylesheet" href="/static/css/owl.theme.scp.css">
+<style TYPE="text/css">
+<!--
+.color-purple a {
+    color: #9b6bcc !important;
+}
+
+.inner-results {
+    margin-bottom: 3em;
+}
+
+.sky-form {
+    border: none;
+}
+.sky-form .label {
+    font-size: 20px !important;
+}
+
+.tag-box-v2 {
+    background: white;
+}
+
+
+
+
+-->
+</style>
+{% endblock %}
+
+{% block search_content %}
+<div class="container ">
+    <div class="col-md-9">
+    <p>
+        <span class="results-number">{# {data.paginator.count} #}</span>
+    </p>
+    <ul class="list-inline">
+        {% for k,v in query_set.items %}
+            {% if v %}
+                <li style="margin: 1px">
+                    <span class="btn-u rounded-2x btn-u-xs btn-purple" >
+                       {{k|upper}}: <strong>{{v}}</strong></span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% if not data %}
+
+    {% include "search/404.html" %}
+
+    {% else %}
+
+    {% for entry in data %}
+
+        <div class="row tag-box tag-box-v2">
+        <div class="col-md-4">
+            <h3 class="color-purple" style="margin-right: 2em">
+                <span class="icon-lab"></span><a href="{% url 'view' entry.info.id %}">
+                {{ entry.info.product_desc|removetags:"name region_id value" }}</a>
+                <span><i class="rounded "></i>
+            </h3>
+            <br />
+
+            <ul class="list-inline citation-tags">
+
+                <li><a class="btn-u btn-brd rounded-2x  btn-u-purple" href="{{entry.info.url}}">
+                    <span class="icon-company"></span> {{entry.info.supplier.supplier}}</a></li>
+                <li><a class="btn-u btn-brd rounded-2x disabled btn-u-default"><i class="icon-book2"></i>
+                Cited by {{entry.num_docs}}</a></li>
+            </ul>
+            <ul class="list-inline citation-tags">
+                {% if entry.info.reactivity_human == 1 %}
+                    <li><a class="btn-u btn-brd rounded-2x disabled btn-u-default  "><i class="icon-target2"></i>
+                        Human
+                    </a></li>
+                {% endif %}
+
+                {% if entry.info.reactivity_mouse == 1 %}
+                    <li><a class="btn-u btn-brd rounded-2x disabled btn-u-default "><i class="icon-target2"></i>
+                        Mouse
+                    </a></li>
+                {% endif %}
+
+                <li><a class="btn-u btn-brd rounded-2x disabled btn-u-default ">
+                    <span class="fa fa-paw"></span> {{entry.info.host}}</a></li>
+            </ul>
+            </div>
+            <div class="col-md-8">
+                <div class="panel panel-figure panel-scp">
+                    <div class="panel-heading"><i class="icon-images"></i> Top Figures</div>
+                    <div class="panel-body figure-window owl-carousel">
+                    {% for fig in entry.figures %}
+                        <div class="item">
+                        {# 'figure__url', 'figure_id', 'figure__doc__citation' #}
+                        <a href="/figureview/{{ fig.figure_id }}"
+                            data-toggle="modal" data-target="#figure-modal-lg">
+                            <img class=" owl-lazy img-responsive img-bordered" data-src="{{fig.figure__url | plosone_figure_url:"medium" }}" alt="{{fig.figure__header}}"/>
+                        </a>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    <!-- Begin Inner Results -->
+    {% endfor %}
+
+
+    <div class="modal fade" id="figure-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="text-center">
+        <ul class="pagination">
+            <li>
+                {% if pagi.has_previous %}
+                    <a href="?page={{ pagi.previous_page_number }}{% for key, value in request.GET.items %}{% if key != "page" %}&{{ key }}={{ value }}{% endif %}{% endfor %}">previous</a>
+                {% endif %}
+            </li>
+            {% for p in pagi.paginator.page_range %}
+            <li {% if p == pagi.number %}class="active"{% endif %}>
+                {% if p == pagi.number %}
+                    <a>{{ pagi.number }}</a>
+                {% else %}
+                    <a href="?page={{p}}{% for key, value in request.GET.items %}{% if key != "page" %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                    {{p}}
+                    </a>
+                {% endif %}
+
+            </li>
+            {% endfor %}
+            <li>
+                {% if pagi.has_next %}
+                    <a href="?page={{ pagi.next_page_number }}{% for key, value in request.GET.items %}{% if key != "page" %}&{{ key }}={{ value }}{% endif %}{% endfor %}">next</a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+    {% endif %}
+    </div>
+
+
+    <div class="col-md-3">
+                    {% include "search/widget_search_history.html" %}
+
+        <form class="sky-form sky-form-purple" action="list">
+            <div class="md-margin-bottom-60">
+                <h3>Filter By</h3>
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                    <i class="icon-company"></i> Company
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                            </h2>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                {% for i in filter_form.company %}
+                                <label class="checkbox">{{i.tag}}{{i.choice_label}}<i></i></label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/end panel group-->
+
+                <div class="panel-group" id="accordion3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion3" href="#collapseThree">
+                                    <i class="icon-target2"></i> Target
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                            </h2>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <label class="checkbox">{{filter_form.target_human}}<i></i>Human</label>
+                                <label class="checkbox">{{filter_form.target_mouse}}<i></i>Mouse</label>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/end panel group-->
+
+                <div class="panel-group" id="accordion2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                                    <i class="fa fa-paw"></i> Host
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                            </h2>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                {% for i in filter_form.host %}
+                                <label class="checkbox">{{i.tag}}{{i.choice_label}}<i></i></label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/end panel group-->
+                <button type="button" class="btn-u btn-brd btn-brd-hover btn-u-lg btn-block" onclick='this.form.clear();this.form.submit()'>Reset</button>
+
+            </div>
+
+            {{filter_form.q}}
+            {{filter_form.t}}
+
+
+        </div>
+        </form>
+
+    </div>
+
+
+
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/bower_components/owl-carousel2/dist/owl.carousel.js"></script>
+<script type="text/javascript">
+
+jQuery(document).ready(function() {
+
+
+  $('body').on('hidden.bs.modal', '.modal', function () {
+    $(this).removeData('bs.modal');
+  });
+        // bug: https://github.com/smashingboxes/OwlCarousel2/issues/707
+        // the last nav dot is not highlighted correctly in responsive mode
+
+    $(".figure-window").owlCarousel({
+        lazyLoad: true,
+        margin: 10,
+        dots: false,
+        stagePadding: 35,
+        navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+        responsive:{
+            0: {
+                items:1,
+                nav: true,
+                dot: false
+            },
+            400:{
+                items:2,
+                nav: true,
+                dot: false
+            },
+            600:{
+                items:3,
+                nav: true,
+                dot: false
+            },
+            1000:{
+                items:3,
+                nav: true,
+                dot: false
+            }
+        }
+    });
+
+
+
+
+    });
+</script>
+{% endblock %}

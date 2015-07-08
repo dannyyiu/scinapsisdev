@@ -1,0 +1,202 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>Scinapsis - The Antibody Search-By-Evidence Engine</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="">
+    {% block metadesc %}
+    {% endblock %}
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="/static/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/assets/css/style.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/static/assets/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="/static/assets/plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/static/css/custom.css">
+    <link rel="stylesheet" href="/static/assets/css/theme-colors/purple.css">
+    <link rel="stylesheet" href="/static/assets/plugins/icomoon/style.css">
+    {% block css %}
+    {% endblock %}
+
+    <script>
+      dataLayer = [];
+    </script>
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-MLJJK5"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MLJJK5');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body class="boxed-layout container">
+<div class="wrapper">
+    <!--=== Header ===-->
+    <div class="header">
+        <!-- Topbar -->
+        <div class="topbar">
+            <div class="container">
+                <!-- Topbar Navigation -->
+                <ul class="loginbar pull-right">
+
+
+                    {% if user and not user.is_anonymous %}
+                        <li>Hello <a href="{% url 'userprofile:profilepage' %}">{{user.username}}</a></li>
+                        {% if user.userprofile and user.userprofile.image %}
+                            <li> <img src="{{ user.userprofile.image.url }}" style="height:50px;max-width:50px;"></li>
+                        {% else %}
+                            <li> <img src="{% static 'images/profile_unknown_sm.png' %}" style="height:50px;max-width:50px;"></li>
+                        {% endif %}
+                        <li class="topbar-devider"></li>
+                        <li><a href="/logout">Logout</a></li>
+                    {% else %}
+
+                        <li><a href="/login">Login</a></li>
+                    {% endif %}
+
+                </ul>
+                <!-- End Topbar Navigation -->
+            </div>
+        </div>
+        <!-- End Topbar -->
+        <!-- Navbar -->
+        <div class="navbar navbar-default mega-menu" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="fa fa-bars"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://www.scinapsis.com">
+                        <img id="logo-header" src="/static/images/logo_header_small.png" alt="Logo">
+                    </a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav">
+                        <!-- Home -->
+                        <li class="dropdown">
+                            <li><a href="#">Home</a>
+                            </li>
+                        </li>
+                        <!-- End Home -->
+                        <!-- Blog -->
+                        <li class="dropdown">
+                            <li><a href="#">Blog</a>
+                            </li>
+                        </li>
+                        <!-- End Blog -->
+                        <li class="dropdown">
+                            <li><a href="#">About</a>
+                            </li>
+                        </li>
+                        <!-- Contacts -->
+                        <li class="dropdown">
+                            <li><a href="#">Contacts</a>
+                            </li>
+                        </li>
+                        <!-- End Contacts -->
+                    </ul>
+                </div>
+                <!--/navbar-collapse-->
+            </div>
+        </div>
+        <!-- End Navbar -->
+    </div>
+    <!--=== End Header ===-->
+
+
+    <div id="base_content">
+
+    {% block base_content %}
+    {% endblock %}
+
+    </div>
+
+    <!--=== Footer Version 1 ===-->
+    <div class="footer-v1">
+        <div class="footer parallaxBg">
+            <div class="container">
+                <div class="row">
+                    <!-- About -->
+                    <div class="col-md-5 md-margin-bottom-40">
+                        <img id="logo-footer" class="footer-logo" src="/static/images/logo_footer.png" alt="">
+                        <h2>Our Mission:</h2>
+                        <p>Our name "Scinapsis" comes from the word "synapsis", which means "pairing of homologous chromosomes".
+                        Our mission is to pair, or connect, scientists to reagents they need for experiments utilizing 
+                        an unbiased evidence-of-use approach.</p>
+                    </div>
+                    <!--/col-md-3-->
+                    <!-- End About -->
+                    <!-- Link List -->
+                    <div class="col-md-3 md-margin-bottom-40">
+                    </div>
+                    <!--/col-md-3-->
+                    <!-- End Link List -->
+                    <!-- Link List -->
+                    <div class="col-md-3 md-margin-bottom-40">
+                <div class="headline"><h2>Contacts</h2></div>
+                <ul class="list-unstyled who margin-bottom-30">
+                    <li><a href="/contact"><i class="fa fa-envelope"></i>info[at]scinapsis.com</a></li>
+                </ul>
+                    </div>
+                    <!--/col-md-3-->
+                    <!-- End Link List -->
+                </div>
+            </div>
+        </div>
+        <!--/footer-->
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>
+                            2015 &copy; All Rights Reserved.
+                            <a href='$'>Privacy Policy</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/copyright-->
+    </div>
+<!--=== End Footer Version 1 ===-->
+</div>
+<!--/wrapper-->
+
+
+<!-- JS Global Compulsory -->
+<script type="text/javascript" src="/static/assets/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/static/assets/plugins/jquery/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- JS Implementing Plugins -->
+<script type="text/javascript" src="/static/assets/plugins/back-to-top.js"></script>
+
+
+{% block js %}
+{% endblock %}
+
+<!--[if lt IE 9]>
+    <script src="/static/assets/plugins/respond.js"></script>
+    <script src="/static/assets/plugins/html5shiv.js"></script>
+    <script src="/static/assets/js/plugins/placeholder-IE-fixes.js"></script>
+<![endif]-->
+
+</body>
+</html>

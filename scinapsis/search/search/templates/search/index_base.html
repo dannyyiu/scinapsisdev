@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style TYPE="text/css">
+<!--
+.search-block {
+    height: auto;
+    margin: 5px 0;
+}
+
+.search_input {
+    border: 1px solid #9b6bcc;
+}
+
+.citation {
+    margin: 0.1em 0;
+    padding: 0;
+}
+.cite-author {
+    color: #888;
+}
+
+.citation-tags li {
+    margin: 2px 0;
+    padding: 0;
+}
+
+.navbar {
+    background-image: url('/static/images/white_shadow_mid.png'), url('/static/images/search_bg_side_bw.svg') !important;
+    background-position: center !important;
+    background-repeat: no-repeat repeat-y!important;
+    background-size: 100%, 50px !important;
+}
+.navbar-form {
+    border: none !important;
+}
+.content {
+    border-top: 1px solid #eee;
+}
+
+.topbar-v1 {
+    border-bottom: 1px solid #9b6bcc !important;
+}
+
+.search-input-group {
+    padding: 1.5em 0;
+}
+.search-img {
+    display: block;
+    float: left;
+    padding-top: 1em;
+    margin-right: 1em;
+}
+-->
+</style>
+    {% block index_css %}
+    {% endblock %}
+{% endblock %}
+
+{% block base_header %}
+    <!--=== Header ===-->
+    <div class="header-v1">
+        <!-- Topbar -->
+        <div class="topbar-v1">
+            <div class="container">
+                {% include 'userprofile/login_toolbar.html'%}
+            </div>
+        </div>
+
+        <!-- End Topbar -->
+        <!-- Navbar -->
+        <div class="navbar navbar-default mega-menu" role="navigation">
+            <div class="container">
+
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div>
+                <!--
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="fa fa-bars"></span>
+                    </button>
+                -->
+                <!--=== Search Block ===-->
+                <div class="search-block">
+                    <form method="GET" id='search-form' role="search" action="/">
+                    <div class="col-sm-8 col-sm-offset-2">
+                    <div class="search-img">
+                        <a href="/"><img src="/static/images/scinapsis_logo_only.svg" width="40px" alt="Logo">
+                        </a>
+                    </div>
+
+                        <div class="input-group search-input-group">
+                            <input type="text" class="form-control typeahead search_input" placeholder="Search" name="q" value="{{query_set.keywords}}">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn-u btn-u-purple"><span class="icon-search"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                <!--/container-->
+                </div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+        <!-- End Navbar -->
+    </div>
+    <!--=== End Header ===-->
+{% endblock %}
+
+{% block base_content %}
+
+<div class="content">
+{% block search_content %}
+{% endblock %}
+</div>
+{% endblock %}
